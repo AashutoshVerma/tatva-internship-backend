@@ -4,17 +4,17 @@ var User = require("../models/userModel");
 //@API GET /api/users/getUsers
 const getUsers = async (req, res) => {
   const users = await User.find();
-  console.log(users);
+  // console.table(users);
   res.status(201).json({ data: users });
 };
 
 //@desc Register User
 //@API POST /api/users/registerUser
 const registerUser = async (req, res) => {
-  const { username, email, password } = req.body;
+  const { firstname, lastname, email, password } = req.body;
   const uniqueUser = await User.findOne({ email: email });
   if (!uniqueUser) {
-    const users = await User.create({ username, email, password });
+    const users = await User.create({ firstname, lastname, email, password });
     res.status(201).json({ data: "User Created" });
   } else {
     res.status(201).json({ data: "User Already Exists" });
